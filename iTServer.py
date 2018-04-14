@@ -16,7 +16,7 @@ while 1:
     if cmd != "exit":
         if cmd == "info":
             print("\t\t\tiTools Backdoor\n\t\t\tVersion 1.0 Alpha")
-            print("\t\t   Backdoor by IndhiFarhandika\n\t\t     Nickname : Exilednoname\n")
+            print("\t\t   Code by IndhiFarhandika\n")
             continue
         elif cmd == "help":
             print("Code :\ninfo")

