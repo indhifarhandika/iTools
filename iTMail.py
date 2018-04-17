@@ -1,45 +1,96 @@
 #!/usr/bin/python
 #Code by INDHI Farhandika
 #Aplikasi iTools Mail
-#Version 1.2 Beta
+#Version 1.6
 
 import smtplib,base64,os,getpass
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
-from colored import fg, attr
-from tkFileDialog import askopenfile
+from colored import fg, attr, bg
+from tkFileDialog import askopenfilename
 
 clear = lambda: os.system('clear')
 
-mymail = base64.b64decode('aW5kaGlmYXJoYW5kaWthQGdtYWlsLmNvbQ==') #My Email
-ps = base64.b64decode('aW5maXRhMTk5OQ==') #My Password
+mymail=''
+pas = ''
+server = ''
+mailReal = ''
 
-def iTools():
-    clear() #Clear Console
-    print "\t\t\t    %s%siTools Mail" % (fg('red'),attr('bold'))
-    print "\t\t\t %sVersi : 1.2 Beta" % (fg('white'))
-    print "\t\t     %sCode by Indhi Farhandika\n\t\t%shttps://github.com/indhifarhandika/iTools%s\n" % (fg('red'), fg('white'), attr('reset'))
-    print "%s1. Mengirim Pesan\n%s2. Help\n%s3. Keluar%s" % (fg('red'), fg('white'), fg('red'), attr('reset'))
-    pilih = raw_input('%s[+]Pilih >> ' % (fg('white')))
-    if pilih == '1':
-        PesanFile() #Pesan dan File
-    elif pilih == '2':
-        hel()
-    elif pilih == '3':
-         print '[+]Thanks'#Keluar Aplikasi
+def login():
+    tampilan()
+    global server
+    global mymail
+    global pas
+    global mailReal
+    print '%s\t\t+---=[%s%sLogin Menggunakan Akun Gmail atau Yahoo%s%s]\n' % (fg('white'),bg('white'),fg('red'),attr('reset'),fg('white'))
+    mymail = raw_input('%s[+]Email : '% fg('white'))
+    pas = getpass.getpass('[+]Password : ')
+    #------[ iTools Teknik While ]---------
+    mail1 = [mymail]
+    mail2 = []
+    mail_total = len(mymail)
+    co = 0
+    while(mail_total >= co):
+        if mail1[0][mail_total-1] == '@':
+            break
+        mail2.append(mail1[0][mail_total-1])
+        mail_total = mail_total - 1
+    mail_total1 = len(mail2)
+    mail3 = []
+    while(mail_total1>co):
+        mail3.append(mail2[mail_total1-1])
+        mail_total1 = mail_total1 - 1
+    mailReal = ''.join(mail3)
+    #--------------------------------
+    if mailReal.lower() == 'gmail.com':
+        print '[+]Loading.....'
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        print '[+]Menyambungkan ke Gmail.....'
+        server.starttls()#Menyambungkan ke Gmail
+        print '[+]Login.....'
+        server.login(mymail,pas) #Login ke Gmail
+        iTMail()
+    elif mailReal.lower() == 'yahoo.com':
+        print '[+]Loading.....'
+        server = smtplib.SMTP('smtp.mail.yahoo.com',587)
+        print '[+]Menyambungkan ke Yahoo.....'
+        server.starttls()#Menyambungkan ke Yahoo
+        print '[+]Login.....'
+        server.login(mymail,pas) #Login ke Yahoo
+        iTMail()
+    elif mailReal.lower() == 'programmer.net':
+        print '[+]Loading.....'
+        server = smtplib.SMTP('smtp.mail.com', 587)
+        print '[+]Menyambungkan ke Mail.....'
+        server.starttls()
+        print '[+]Login.....'
+        server.login(mymail,pas)
+        iTMail()
     else:
-        print 'Salah'
+        print '[+]-----------Hanya bisa Login dengan akun Gmail atau Yahoo'
         raw_input('')
-        return (iTools())
-def hel():
-    print '\t\t\tLogin menggunakan akun Gmail\n'
-    raw_input('Tekan Enter untuk kembali ke Menu')
-    iTools()
-def PesanFile():
-    #mymail = raw_input('Email : ')
-    #pas = getpass.getpass('Password : ')
+        login()
+    #-----------------
+
+def iTMail():
+    global mymail
+    global pas
+    global server
+    global mailReal
+    tampilan()
+    #------------------------
+    if mailReal.lower() == 'gmail.com':
+        print '\t\t%s+-----------------=[%s%sGmail%s%s]' % (fg('white'),bg('white'),fg('red'),attr('reset'),fg('white'))
+        print '\t\t+----=[%s%sYour Mail : %s%s%s]\n' % (bg('white'),fg('red'),mymail,attr('reset'),fg('white'))
+    elif mailReal.lower() == 'yahoo.com':
+        print '\t\t%s+-----------------=[%s%sYahoo%s%s]' % (fg('white'),bg('white'),fg('red'),attr('reset'),fg('white'))
+        print '\t\t+----=[%s%sYour Mail : %s%s%s]\n' % (bg('white'),fg('red'),mymail,attr('reset'),fg('white'))
+    elif mailReal.lower() == 'programmer.net':
+        print '\t\t%s+-----------------=[%s%sMail%s%s]' % (fg('white'),bg('white'),fg('red'),attr('reset'),fg('white'))
+        print '\t\t+----=[%s%sYour Mail : %s%s%s]\n' % (bg('white'),fg('red'),mymail,attr('reset'),fg('white'))
+    #-------------------------
     yumail = raw_input('To : ')
     subject = raw_input('Subject : ')
     msg = MIMEMultipart()
@@ -56,44 +107,62 @@ def PesanFile():
             print '[+]Anda mengirim Pesan tanpa File'
             break
         else:
-            ##while True: #Perulangan while 2
-                #dire = raw_input('Letak File : ')
-                #if dire == '':
-                    #continue
-                #elif os.path.isdir(dire):
             for i in range(int(count)):
-                while True: #Perulangan while 3
-                    filename = askopenfile()
-                            #dirfil = dire + filename
-                    if filename == '':
+                while True: #Perulangan while 2
+                    filename = askopenfilename(title='iTMail')
+                    if filename == None:
                         continue
-                    else :#os.path.isfile(str(filename)): #Cek File
-                        attachment = open(str(filename),'r') #Membuka File
+                    elif os.path.isfile(filename): #Cek File
+                        #---Menentukan Nama File
+                        #------[ iTools Teknik While ]---------
+                        file1 = [filename]
+                        file2 = []
+                        file_total = len(filename)
+                        co = 0
+                        while(file_total >= co):
+                            if file1[0][file_total-1] == '/':
+                                break
+                            file2.append(file1[0][file_total-1])
+                            file_total = file_total - 1
+                        file_total1 = len(file2)
+                        file3 = []
+                        while(file_total1>co):
+                            file3.append(file2[file_total1-1])
+                            file_total1 = file_total1 - 1
+                        fileReal = ''.join(file3)
+                        print '[+]Nama File %i : %s' % ((i+1),fileReal)
+                        #-----------------
+                        attachment = open(filename,'rb') #Membuka File
                         fileArray=[i] #memasukan nama file ke dalam array
                         part = MIMEBase('application','octet-stream')
                         part.set_payload((attachment).read())
                         encoders.encode_base64(part)
-                        part.add_header('Content-Disposition',"attachment; filename= "+ str(filename))
+                        part.add_header('Content-Disposition',"attachment; filename= "+ fileReal)
                         msg.attach(part)
-                        break #Berhenti perulangan while 3
-                    #else:
-                    #    print '[+]File tidak ditemukan'
-                    #    continue
-                    #break #Berhenti perulangan while 2
-                else:
-                    print '[+]Folder tidak di temukan'
-                    continue
+                        break #Berhenti perulangan while 2
+                    else:
+                        filename = None
+                        break
         break #Berhenti perulangan while 1
     #Exit Perulangan
     print '[+]Loading.....'
     text = msg.as_string()
-    server = smtplib.SMTP('smtp.gmail.com',587) #menyambungkan ke Gmail, untuk Yahoo ('smtp.mail.yahoo.com',587)
-    server.starttls()
-    print '[+]Login......'
-    server.login(mymail,ps) #Login ke Gmail
     print '[+]Mengirim Pesan......'
     server.sendmail(mymail,yumail,text) #Mengirim Email
     print '[+]Pesan Terkirim'
     server.quit() #Exit
+
+def tampilan():
+    clear() #Clear Console
+    print """
+    %s%s\t\t++++++++++++++++++++++++++++++++++++++++++++++++++
+    \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+    \t\t+--------------------=[%siTMail%s]_-_-_-_-_-_-_-_-_-_+
+    \t\t+--=[%sVersi 1.6%s]-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_+
+    \t\t%s+----------------=[%sAuthor : indhifarhandika%s]-_-_-+
+    \t\t+-----=[%sEmail : indhifarhandika@programmer.net%s]-_+
+    \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+    \t\t++++++++++++++++++++++++++++++++++++++++++++++++++
+    \t\t|%s""" % (attr('bold'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),attr('reset'))
 if __name__ == '__main__':
-    iTools()
+    login()
