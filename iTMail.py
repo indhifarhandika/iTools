@@ -1,4 +1,5 @@
 #!/usr/bin/python
+<<<<<<< HEAD
 """
     https://indhifarhandika.github.io
     Author : INDHI Farhandika
@@ -6,6 +7,11 @@
     Version 1.6
     Linux
 """
+=======
+#Code by INDHI Farhandika
+#Aplikasi iTools Mail
+#Version 1.6
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
 
 import smtplib,base64,os,getpass
 from email.mime.text import MIMEText
@@ -23,14 +29,21 @@ server = ''
 mailReal = ''
 
 def login():
+<<<<<<< HEAD
     #------- Memanggil fungsi tampilan() ------#
     tampilan()
     #------- Variabel Global ------#
+=======
+    tampilan()
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
     global server
     global mymail
     global pas
     global mailReal
+<<<<<<< HEAD
     #-----------------------------#
+=======
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
     print '%s\t\t+---=[%s%sLogin Menggunakan Akun Gmail atau Yahoo%s%s]\n' % (fg('white'),bg('white'),fg('red'),attr('reset'),fg('white'))
     mymail = raw_input('%s[+]Email : '% fg('white'))
     pas = getpass.getpass('[+]Password : ')
@@ -50,7 +63,11 @@ def login():
         mail3.append(mail2[mail_total1-1])
         mail_total1 = mail_total1 - 1
     mailReal = ''.join(mail3)
+<<<<<<< HEAD
     #---------- Cek Email -------------#
+=======
+    #--------------------------------
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
     if mailReal.lower() == 'gmail.com':
         print '[+]Loading.....'
         server = smtplib.SMTP('smtp.gmail.com',587)
@@ -116,7 +133,11 @@ def iTMail():
         else:
             for i in range(int(count)):
                 while True: #Perulangan while 2
+<<<<<<< HEAD
                     filename = askopenfilename(title = 'iTMail')
+=======
+                    filename = askopenfilename(title='iTMail')
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
                     if filename == None:
                         continue
                     elif os.path.isfile(filename): #Cek File
@@ -133,7 +154,11 @@ def iTMail():
                             file_total = file_total - 1
                         file_total1 = len(file2)
                         file3 = []
+<<<<<<< HEAD
                         while(file_total1 > co):
+=======
+                        while(file_total1>co):
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
                             file3.append(file2[file_total1-1])
                             file_total1 = file_total1 - 1
                         fileReal = ''.join(file3)
@@ -164,6 +189,7 @@ def tampilan():
     print """
     %s%s\t\t++++++++++++++++++++++++++++++++++++++++++++++++++
     \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+<<<<<<< HEAD
     \t\t+------------------=[%siTMail Linux%s]_-_-_-_-_-_-_-_+
     \t\t+--=[%sVersi 1.6%s]-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_+
     \t\t%s+----------------=[%sAuthor : indhifarhandika%s]-_-_-+
@@ -171,5 +197,14 @@ def tampilan():
     \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
     \t\t++++++++++++++++++++++++++++++++++++++++++++++++++
     \t\t+------=[%s%shttps://indhifarhandika.github.io%s]%s""" % (attr('bold'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),attr('bold'),fg('red'),fg('white'),attr('reset'))
+=======
+    \t\t+--------------------=[%siTMail%s]_-_-_-_-_-_-_-_-_-_+
+    \t\t+--=[%sVersi 1.6%s]-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_+
+    \t\t%s+----------------=[%sAuthor : indhifarhandika%s]-_-_-+
+    \t\t+-----=[%sEmail : indhifarhandika@programmer.net%s]-_+
+    \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+    \t\t++++++++++++++++++++++++++++++++++++++++++++++++++
+    \t\t|%s""" % (attr('bold'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),attr('reset'))
+>>>>>>> 6f4a2175ecd13de448ba96fb6ff88380fb42ae3a
 if __name__ == '__main__':
     login()
