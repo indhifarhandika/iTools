@@ -3,8 +3,8 @@
 #Apikasi iTools File Sharing
 #Version 1.0 Alpha
 
-import http.server
-import socketserver
+import SimpleHTTPServer
+import SocketServer
 import os
 
 ip = lambda: os.system('ifconfig | grep broadcast') #Cek IP Address
@@ -14,13 +14,11 @@ clear = lambda: os.system('clear') #"clear" untuk OS Linux | "cls" untuk OS Wind
 def iTools():
 	port = 99
 	clear()
-	print "\t\t\tiTools File Sharing"
-	print "\t\t\t Versi : 1.0 Alpha"
-	print "\t\t     Code by Indhi Farhandika"
 	ip() #Cek IP Address
 	host = raw_input('\nYour IP Address(inet) : ')#Input Ip Address, jika tidak diisi maka akan menjalankan Ip secara Otomatis
-	hnd = http.server.SimpleHTTPRequestHandler
-	http1 = socketserver.TCPServer((host,port),hnd)
+	tampilan()
+	hnd = SimpleHTTPServer.SimpleHTTPRequestHandler
+	http1 = SocketServer.TCPServer((host,port),hnd)
 
 	if host == '': #Untuk Ip Otomatis
 		print '[+]Server Ip Default, Port :%s' % port
@@ -32,6 +30,18 @@ def iTools():
 		print '[+]Direktory Sharing....'
 		cekfolder()
 		print '[+]Starting.....'
-	http1.serve_forever()#Start
+	http1.serve_forever()#Start Server
+def tampilan():
+    clear() #Clear Console
+    print """
+    %s%s\t\t++++++++++++++++++++++++++++++++++++++++++++++++++
+    \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+    \t\t+-------------=[%siTFileSharing Linux%s]_-_-_-_-_-_-_+
+    \t\t+--=[%sVersi 1.6%s]-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_+
+    \t\t%s+----------------=[%sAuthor : indhifarhandika%s]-_-_-+
+    \t\t+----=[%sEmail : indhi.farhandika@programmer.net%s]-_+
+    \t\t+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-+
+    \t\t++++++++++++++++++++++++++++++++++++++++++++++++++
+    \t\t+------=[%s%shttps://indhifarhandika.github.io%s]%s""" % (attr('bold'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),fg('red'),fg('white'),attr('bold'),fg('red'),fg('white'),attr('reset'))
 if __name__ == "__main__":
 	iTools() #Main()
